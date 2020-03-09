@@ -1,0 +1,51 @@
+@startuml
+title <期末考试流程>
+
+partition 教务处 {
+	start
+	:安排考试;
+	:考试安排表;
+	:打印试卷;
+	:试卷;
+	if (有不及格?) then (有)
+	  :安排补考;
+	  :补考安排表;
+	  stop
+	endif
+
+}
+partition 教师 {
+	:出卷;
+	fork
+    	:A、B试卷;
+    	detach
+      fork again
+    	:打印审批表1;
+    	detach
+      end fork
+
+     :阅卷出成绩;
+     	fork
+           :成绩单;
+          fork again
+            :答卷1;
+              end fork
+     :期末流程结束;
+     stop
+
+}
+
+partition 系主任 {
+	:审批签字;
+	:打印审批表2;
+
+}
+partition 学生 {
+	:参加考试;
+	:答卷2;
+
+}
+
+
+
+@enduml
